@@ -83,6 +83,7 @@ class UserLogoutView(APIView):
 
 
 class SuggestedFriendsView(RetrieveAPIView):
+
     permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
@@ -95,6 +96,7 @@ class SuggestedFriendsView(RetrieveAPIView):
         suggested_friends = []
 
         target_user = data["users"][user_id-1]
+
         target_interests = set(target_user["interests"])
 
         for user in data["users"]:
