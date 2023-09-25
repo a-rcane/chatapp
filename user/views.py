@@ -50,25 +50,6 @@ class UserLoginView(GenericAPIView):
             )
 
 
-class UserUpdateView(UpdateAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UserUpdateSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user
-
-    def patch(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(
-            {'message': 'User data updated successfully', 'data': serializer.data},
-            status=status.HTTP_200_OK
-        )
-
-
 class UserLogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
